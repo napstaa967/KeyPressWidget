@@ -1,4 +1,4 @@
-﻿<?xml version='1.0' encoding='utf-8'?>
+<?xml version='1.0' encoding='utf-8'?>
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="keystuff.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
@@ -39,8 +39,7 @@
       <Value Profile="(Default)">60, 60, 60</Value>
     </Setting>
     <Setting Name="PerKeyMonitors" Type="System.Collections.Generic.List&lt;System.String&gt;" Scope="User">
-      <Value Profile="(Default)">"A"
-"B"</Value>
+      <Value Profile="(Default)"></Value>
     </Setting>
     <Setting Name="KeyMonitorWindowSize" Type="System.Drawing.Size" Scope="User">
       <Value Profile="(Default)">150, 150</Value>
