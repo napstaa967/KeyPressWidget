@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
@@ -38,10 +38,15 @@ namespace keystuff
         public Form1()
         {
             InitializeComponent();
-            Settings.Default.PerKeyMonitors.ForEach(x =>
+
+            if (Settings.Default.PerKeyMonitors != null)
             {
-                new Form3(x).Show();
-            });
+                Console.WriteLine("fard");
+                Settings.Default.PerKeyMonitors.ForEach(x =>
+                {
+                    new Form3(x).Show();
+                });
+            }
             
             this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
             this.contextMenu1 = new ContextMenu();
