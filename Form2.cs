@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using keystuff.Properties;
 using System.Drawing;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace keystuff
 {
@@ -367,7 +368,12 @@ namespace keystuff
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(188, 53);
             this.comboBox2.TabIndex = 28;
+            if (Settings.Default.PerKeyMonitors == null)
+            {
+                Settings.Default.PerKeyMonitors = new List<string> { "None" };
+            }
             this.comboBox2.Items.AddRange(Settings.Default.PerKeyMonitors.Cast<object>().ToArray());
+
             // 
             // textBox7
             // 
@@ -568,7 +574,7 @@ namespace keystuff
 
         private void button4_Click(object sender, EventArgs e)
         {
-            if (comboBox2.SelectedIndex != -1)
+            if (comboBox2.SelectedIndex != -1 && Settings.Default.PerKeyMonitors != null)
             {
                 Settings.Default.PerKeyMonitors.RemoveAt(comboBox2.SelectedIndex);
                 comboBox2.Items.Clear();
@@ -580,13 +586,38 @@ namespace keystuff
 
         private void button5_Click(object sender, EventArgs e)
         {
-            if (textBox6.Text.Length == 1)
+            if (textBox6.Text == null)
             {
-                Settings.Default.PerKeyMonitors.Add(textBox6.Text.ToUpper());
+                return;
+            }
+            else if (textBox6.Text.Length == 1)
+            {
+                if (Settings.Default.PerKeyMonitors == null)
+                {
+                    Settings.Default.PerKeyMonitors = new List<string>()
+                    {
+                        textBox6.Text.ToUpper()
+                    };
+                    Settings.Default.Save();
+                }
+                else
+                {
+                    Settings.Default.PerKeyMonitors.Add(textBox6.Text.ToUpper());
+                    Settings.Default.Save();
+                }
+                
             }
             else
             {
-                Settings.Default.PerKeyMonitors.Add(textBox6.Text);
+                if (Settings.Default.PerKeyMonitors == null)
+                {
+                    Settings.Default.PerKeyMonitors = new List<string>()
+                    {
+                        textBox6.Text
+                    };
+                    Settings.Default.Save();
+                }
+                Settings.Default.Save();
             }
             comboBox2.Items.Clear();
             Settings.Default.Save();
