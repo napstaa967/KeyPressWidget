@@ -1,0 +1,15 @@
+C:\Users\226.LAPTOP-IO6C0N9M\Source\Repos\KeyPressMain\keystuff\bin\Debug\keystuff.exe.config
+C:\Users\226.LAPTOP-IO6C0N9M\Source\Repos\KeyPressMain\keystuff\bin\Debug\keystuff.exe
+C:\Users\226.LAPTOP-IO6C0N9M\Source\Repos\KeyPressMain\keystuff\bin\Debug\keystuff.pdb
+C:\Users\226.LAPTOP-IO6C0N9M\Source\Repos\KeyPressMain\keystuff\bin\Debug\Gma.System.MouseKeyHook.dll
+C:\Users\226.LAPTOP-IO6C0N9M\Source\Repos\KeyPressMain\keystuff\obj\Debug\keystuff.csproj.AssemblyReference.cache
+C:\Users\226.LAPTOP-IO6C0N9M\Source\Repos\KeyPressMain\keystuff\obj\Debug\keystuff.csproj.SuggestedBindingRedirects.cache
+C:\Users\226.LAPTOP-IO6C0N9M\Source\Repos\KeyPressMain\keystuff\obj\Debug\keystuff.Form3.resources
+C:\Users\226.LAPTOP-IO6C0N9M\Source\Repos\KeyPressMain\keystuff\obj\Debug\keystuff.Form2.resources
+C:\Users\226.LAPTOP-IO6C0N9M\Source\Repos\KeyPressMain\keystuff\obj\Debug\keystuff.Form1.resources
+C:\Users\226.LAPTOP-IO6C0N9M\Source\Repos\KeyPressMain\keystuff\obj\Debug\keystuff.Properties.Resources.resources
+C:\Users\226.LAPTOP-IO6C0N9M\Source\Repos\KeyPressMain\keystuff\obj\Debug\keystuff.csproj.GenerateResource.cache
+C:\Users\226.LAPTOP-IO6C0N9M\Source\Repos\KeyPressMain\keystuff\obj\Debug\keystuff.csproj.CoreCompileInputs.cache
+C:\Users\226.LAPTOP-IO6C0N9M\Source\Repos\KeyPressMain\keystuff\obj\Debug\keystuff.csproj.CopyComplete
+C:\Users\226.LAPTOP-IO6C0N9M\Source\Repos\KeyPressMain\keystuff\obj\Debug\keystuff.exe
+C:\Users\226.LAPTOP-IO6C0N9M\Source\Repos\KeyPressMain\keystuff\obj\Debug\keystuff.pdb

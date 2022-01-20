@@ -34,6 +34,7 @@ namespace keystuff
         public MenuItem settingStuff;
         public bool CurrentlyPressed = false;
         public string monitorkey;
+        public string typeofmonitor;
         public Form3(string thekey)
         {
             if (ThemeSet == "System")
@@ -75,6 +76,8 @@ namespace keystuff
             this.label1.Text = stuffnew[0];
             this.monitorkey = stuffnew[0];
             Console.WriteLine(stuffnew[1]);
+            Console.WriteLine(stuffnew.Count);
+            typeofmonitor = stuffnew[3];
             this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
             this.contextMenu1 = new ContextMenu();
             this.alwaysOnTop = new MenuItem();
@@ -90,45 +93,183 @@ namespace keystuff
             m_GlobalHook = Hook.GlobalEvents();
             m_GlobalHook.KeyDown += UpdateText;
             m_GlobalHook.KeyUp += StopKey;
+            m_GlobalHook.MouseDown += UpdateTextMouse;
+            m_GlobalHook.MouseUp += StopKeyMouse;
             timer2.Start();
             
         }
 
+        private void UpdateTextMouse(object sender, MouseEventArgs e)
+        {
+            if (Settings.Default.IsOnSettings == false)
+            {
+                if (typeofmonitor == "Mouse")
+                {
+                    Show();
+                    List<string> leftmousekeys = new List<string>()
+            {
+                "LMouse", "LeftMouse", "LeftMouseButton", "LeftMouseKey", "Mouse1", "L"
+            };
+                    List<string> rightmousekeys = new List<string>()
+            {
+                "RMouse", "RightMouse", "RightMouseButton", "RightMouseKey", "Mouse2", "R"
+            };
+                    List<string> middlemousekeys = new List<string>()
+            {
+                "MMouse", "LMiddleouse", "MiddleMouseButton", "MiddleMouseKey", "Mouse3", "M"
+            };
+                    if (e.Button == MouseButtons.Left && leftmousekeys.IndexOf(monitorkey) != -1)
+                    {
+
+                        CurrentlyPressed = true;
+                        if (Opacity != Settings.Default.Opacity)
+                        {
+                            timer1.Stop();
+                            Opacity = Settings.Default.Opacity;
+                        }
+
+                        this.panel1.BackColor = Settings.Default.ThemeHighlightColor;
+
+                    }
+                    if (e.Button == MouseButtons.Right && rightmousekeys.IndexOf(monitorkey) != -1)
+                    {
+
+                        CurrentlyPressed = true;
+                        if (Opacity != Settings.Default.Opacity)
+                        {
+                            timer1.Stop();
+                            Opacity = Settings.Default.Opacity;
+                        }
+
+                        this.panel1.BackColor = Settings.Default.ThemeHighlightColor;
+
+                    }
+                    if (e.Button == MouseButtons.Middle && middlemousekeys.IndexOf(monitorkey) != -1)
+                    {
+
+                        CurrentlyPressed = true;
+                        if (Opacity != Settings.Default.Opacity)
+                        {
+                            timer1.Stop();
+                            Opacity = Settings.Default.Opacity;
+                        }
+
+                        this.panel1.BackColor = Settings.Default.ThemeHighlightColor;
+
+                    }
+                }
+            }
+        }
+
+        private void StopKeyMouse(object sender, MouseEventArgs e)
+        {
+            if (Settings.Default.IsOnSettings == false)
+            {
+                if (typeofmonitor == "Mouse")
+                {
+                    Show();
+                    List<string> leftmousekeys = new List<string>()
+                {
+                    "LMouse", "LeftMouse", "LeftMouseButton", "LeftMouseKey", "Mouse1"
+                };
+                    List<string> rightmousekeys = new List<string>()
+                {
+                    "RMouse", "RightMouse", "RightMouseButton", "RightMouseKey", "Mouse2"
+                };
+                    List<string> middlemousekeys = new List<string>()
+                {
+                    "MMouse", "LMiddleouse", "MiddleMouseButton", "MiddleMouseKey", "Mouse3"
+                };
+                    if (e.Button == MouseButtons.Left && leftmousekeys.IndexOf(monitorkey) != -1)
+                    {
+
+                        CurrentlyPressed = false;
+                        if (Opacity != Settings.Default.Opacity)
+                        {
+                            timer1.Stop();
+                            Opacity = Settings.Default.Opacity;
+                        }
+
+                        this.panel1.BackColor = Settings.Default.ThemeBackColor;
+
+                    }
+                    if (e.Button == MouseButtons.Right && rightmousekeys.IndexOf(monitorkey) != -1)
+                    {
+
+                        CurrentlyPressed = false;
+                        if (Opacity != Settings.Default.Opacity)
+                        {
+                            timer1.Stop();
+                            Opacity = Settings.Default.Opacity;
+                        }
+
+                        this.panel1.BackColor = Settings.Default.ThemeBackColor;
+
+                    }
+                    if (e.Button == MouseButtons.Middle && middlemousekeys.IndexOf(monitorkey) != -1)
+                    {
+
+                        CurrentlyPressed = false;
+                        if (Opacity != Settings.Default.Opacity)
+                        {
+                            timer1.Stop();
+                            Opacity = Settings.Default.Opacity;
+                        }
+
+                        this.panel1.BackColor = Settings.Default.ThemeBackColor;
+
+                    }
+                    timer2.Start();
+                }
+            }
+        }
+
         private void UpdateText(object sender, KeyEventArgs e)
         {
-            
-            Show();
-            
-            if (e.KeyData.ToString() == monitorkey)
+            if (Settings.Default.IsOnSettings == false)
             {
-                Console.WriteLine("shit");
-                CurrentlyPressed = true;
-                if (Opacity != Settings.Default.Opacity)
+                if (typeofmonitor == "Keyboard")
                 {
-                    timer1.Stop();
-                    Opacity = Settings.Default.Opacity;
+                    Show();
+
+                    if (e.KeyData.ToString() == monitorkey)
+                    {
+
+                        CurrentlyPressed = true;
+                        if (Opacity != Settings.Default.Opacity)
+                        {
+                            timer1.Stop();
+                            Opacity = Settings.Default.Opacity;
+                        }
+
+                        this.panel1.BackColor = Settings.Default.ThemeHighlightColor;
+
+                    }
                 }
-                Console.WriteLine(panel1.BackColor);
-                this.panel1.BackColor = Settings.Default.ThemeHighlightColor;
-                Console.WriteLine(panel1.BackColor);
             }
         }
 
         private void StopKey(object sender, KeyEventArgs e)
         {
-            Show();
-            
-            if (e.KeyData.ToString() == monitorkey)
+            if (Settings.Default.IsOnSettings == false)
             {
-                CurrentlyPressed = false;
-                this.panel1.BackColor = Settings.Default.ThemeBackColor;
-                if (Opacity != Settings.Default.Opacity)
+                if (typeofmonitor == "Keyboard")
                 {
-                    timer1.Stop();
-                    Opacity = Settings.Default.Opacity;
+                    Show();
+
+                    if (e.KeyData.ToString() == monitorkey)
+                    {
+                        CurrentlyPressed = false;
+                        this.panel1.BackColor = Settings.Default.ThemeBackColor;
+                        if (Opacity != Settings.Default.Opacity)
+                        {
+                            timer1.Stop();
+                            Opacity = Settings.Default.Opacity;
+                        }
+                    }
+                    timer2.Start();
                 }
             }
-            timer2.Start();
         }
 
         internal static void RestartApp()
