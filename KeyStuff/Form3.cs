@@ -232,7 +232,80 @@ namespace keystuff
                 {
                     Show();
 
-                    if (e.KeyData.ToString() == monitorkey)
+                    var TextList = e.KeyData.ToString();
+                    TextList = TextList.Replace("	", "");
+                    TextList = TextList.Replace(" ", "");
+                    var NewList = TextList.Split(',');
+                    List<string> ListStuff = new List<string>(NewList);
+                    if (ListStuff.IndexOf("RShiftKey") != -1 || ListStuff.IndexOf("LShiftKey") != -1 || ListStuff.IndexOf("Shift") != -1)
+                    {
+                        while (ListStuff.IndexOf("LShiftKey") != -1)
+                        {
+                            ListStuff.RemoveAt(ListStuff.IndexOf("LShiftKey"));
+                        }
+                        while (ListStuff.IndexOf("RShiftKey") != -1)
+                        {
+                            ListStuff.RemoveAt(ListStuff.IndexOf("RShiftKey"));
+                        }
+                        while (ListStuff.IndexOf("Shift") != -1)
+                        {
+                            ListStuff.RemoveAt(ListStuff.IndexOf("Shift"));
+                        }
+                        if (ListStuff.IndexOf("RShiftKey") == -1 && ListStuff.IndexOf("LShiftKey") == -1 && ListStuff.IndexOf("Shift") == -1)
+                        {
+                            ListStuff.Insert(0, "Shift");
+                        }
+                    }
+                    if (ListStuff.IndexOf("Alt") != -1 || ListStuff.IndexOf("LMenu") != -1 || ListStuff.IndexOf("RMenu") != -1)
+                    {
+                        while (ListStuff.IndexOf("Alt") != -1)
+                        {
+                            ListStuff.RemoveAt(ListStuff.IndexOf("Alt"));
+                        }
+                        while (ListStuff.IndexOf("LMenu") != -1)
+                        {
+                            ListStuff.RemoveAt(ListStuff.IndexOf("LMenu"));
+                        }
+                        while (ListStuff.IndexOf("RMenu") != -1)
+                        {
+                            ListStuff.RemoveAt(ListStuff.IndexOf("RMenu"));
+                        }
+                        if (ListStuff.IndexOf("Alt") == -1 && ListStuff.IndexOf("LMenu") == -1 && ListStuff.IndexOf("RMenu") == -1)
+                        {
+
+                            ListStuff.Insert(0, "Alt");
+                        }
+                    }
+                    if (ListStuff.IndexOf("Control") != -1 || ListStuff.IndexOf("LControlKey") != -1 || ListStuff.IndexOf("RControlKey") != -1)
+                    {
+                        while (ListStuff.IndexOf("Control") != -1)
+                        {
+                            ListStuff.RemoveAt(ListStuff.IndexOf("Control"));
+                        }
+                        while (ListStuff.IndexOf("LControlKey") != -1)
+                        {
+                            ListStuff.RemoveAt(ListStuff.IndexOf("LControlKey"));
+                        }
+                        while (ListStuff.IndexOf("RControlKey") != -1)
+                        {
+                            ListStuff.RemoveAt(ListStuff.IndexOf("RControlKey"));
+                        }
+                        if (ListStuff.IndexOf("Control") == -1 && ListStuff.IndexOf("LControlKey") == -1 && ListStuff.IndexOf("RControlKey") == -1)
+                        {
+                            ListStuff.Insert(0, "Control");
+                        }
+                    }
+                    if (ListStuff.IndexOf("LWin") != -1)
+                    {
+                        ListStuff.RemoveAt(ListStuff.IndexOf("LWin"));
+                        ListStuff.Insert(0, "Win");
+                    };
+                    ListStuff.ForEach(x =>
+                    {
+                        if (x.Length == 1) x = x.ToUpper();
+                    });
+                    var joined = String.Join("+", ListStuff);
+                    if (ListStuff.IndexOf(monitorkey) != -1 || joined == monitorkey)
                     {
 
                         CurrentlyPressed = true;
@@ -257,7 +330,80 @@ namespace keystuff
                 {
                     Show();
 
-                    if (e.KeyData.ToString() == monitorkey)
+                    var TextList = e.KeyData.ToString();
+                    TextList = TextList.Replace("	", "");
+                    TextList = TextList.Replace(" ", "");
+                    var NewList = TextList.Split(',');
+                    List<string> ListStuff = new List<string>(NewList);
+                    if (ListStuff.IndexOf("RShiftKey") != -1 || ListStuff.IndexOf("LShiftKey") != -1 || ListStuff.IndexOf("Shift") != -1)
+                    {
+                        while (ListStuff.IndexOf("LShiftKey") != -1)
+                        {
+                            ListStuff.RemoveAt(ListStuff.IndexOf("LShiftKey"));
+                        }
+                        while (ListStuff.IndexOf("RShiftKey") != -1)
+                        {
+                            ListStuff.RemoveAt(ListStuff.IndexOf("RShiftKey"));
+                        }
+                        while (ListStuff.IndexOf("Shift") != -1)
+                        {
+                            ListStuff.RemoveAt(ListStuff.IndexOf("Shift"));
+                        }
+                        if (ListStuff.IndexOf("RShiftKey") == -1 && ListStuff.IndexOf("LShiftKey") == -1 && ListStuff.IndexOf("Shift") == -1)
+                        {
+                            ListStuff.Insert(0, "Shift");
+                        }
+                    }
+                    if (ListStuff.IndexOf("Alt") != -1 || ListStuff.IndexOf("LMenu") != -1 || ListStuff.IndexOf("RMenu") != -1)
+                    {
+                        while (ListStuff.IndexOf("Alt") != -1)
+                        {
+                            ListStuff.RemoveAt(ListStuff.IndexOf("Alt"));
+                        }
+                        while (ListStuff.IndexOf("LMenu") != -1)
+                        {
+                            ListStuff.RemoveAt(ListStuff.IndexOf("LMenu"));
+                        }
+                        while (ListStuff.IndexOf("RMenu") != -1)
+                        {
+                            ListStuff.RemoveAt(ListStuff.IndexOf("RMenu"));
+                        }
+                        if (ListStuff.IndexOf("Alt") == -1 && ListStuff.IndexOf("LMenu") == -1 && ListStuff.IndexOf("RMenu") == -1)
+                        {
+
+                            ListStuff.Insert(0, "Alt");
+                        }
+                    }
+                    if (ListStuff.IndexOf("Control") != -1 || ListStuff.IndexOf("LControlKey") != -1 || ListStuff.IndexOf("RControlKey") != -1)
+                    {
+                        while (ListStuff.IndexOf("Control") != -1)
+                        {
+                            ListStuff.RemoveAt(ListStuff.IndexOf("Control"));
+                        }
+                        while (ListStuff.IndexOf("LControlKey") != -1)
+                        {
+                            ListStuff.RemoveAt(ListStuff.IndexOf("LControlKey"));
+                        }
+                        while (ListStuff.IndexOf("RControlKey") != -1)
+                        {
+                            ListStuff.RemoveAt(ListStuff.IndexOf("RControlKey"));
+                        }
+                        if (ListStuff.IndexOf("Control") == -1 && ListStuff.IndexOf("LControlKey") == -1 && ListStuff.IndexOf("RControlKey") == -1)
+                        {
+                            ListStuff.Insert(0, "Control");
+                        }
+                    }
+                    if (ListStuff.IndexOf("LWin") != -1)
+                    {
+                        ListStuff.RemoveAt(ListStuff.IndexOf("LWin"));
+                        ListStuff.Insert(0, "Win");
+                    };
+                    ListStuff.ForEach(x =>
+                    {
+                        if (x.Length == 1) x = x.ToUpper();
+                    });
+                    var joined = String.Join("+", ListStuff);
+                    if (ListStuff.IndexOf(monitorkey) != -1 || joined == monitorkey)
                     {
                         CurrentlyPressed = false;
                         this.panel1.BackColor = Settings.Default.ThemeBackColor;
