@@ -47,7 +47,10 @@ namespace keystuff
                     new Form3(x).Show();
                 });
             }
-
+            if (Settings.Default.HideMain == true)
+            {
+                Hide();
+            }
             this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
             this.contextMenu1 = new ContextMenu();
             this.alwaysOnTop = new MenuItem();

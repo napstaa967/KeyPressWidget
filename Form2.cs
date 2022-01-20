@@ -679,6 +679,7 @@ namespace keystuff
                 {
                     listthing.Add(x.Split('|')[0]);
                 });
+                comboBox2.Items.AddRange(listthing.Cast<object>().ToArray());
             }
             
         }
