@@ -307,7 +307,7 @@ namespace keystuff
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new Size(294, 45);
             this.trackBar1.TabIndex = 22;
-            //this.trackBar1.Value = Int32.Parse((Settings.Default.Opacity * 100).ToString());
+            this.trackBar1.Value = Int32.Parse((Settings.Default.Opacity * 100).ToString());
             this.trackBar1.ValueChanged += TrackBar1_ValueChanged;
             // 
             // textBox5
@@ -319,7 +319,7 @@ namespace keystuff
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new Size(71, 50);
             this.textBox5.TabIndex = 21;
-            this.textBox5.Text = (Settings.Default.Opacity* 100).ToString();
+            this.textBox5.Text = (Settings.Default.Opacity * 100).ToString();
             this.textBox5.TextChanged += textBox5_TextChanged;
             // 
             // label10
@@ -653,6 +653,17 @@ namespace keystuff
             if (textBox7.Text != null && textBox8.Text != null)
             {
                 Settings.Default.KeyMonitorWindowSize = new Size(Int32.Parse(textBox7.Text), Int32.Parse(textBox8.Text));
+            }
+            if (textBox5.Text != null)
+            {
+                if (Int32.Parse(textBox5.Text) < 20)
+                {
+                    Settings.Default.Opacity = 0.2f;
+                }
+                else
+                {
+                    Settings.Default.Opacity = float.Parse(textBox5.Text) / 100;
+                }
             }
             Settings.Default.Save();
         }
