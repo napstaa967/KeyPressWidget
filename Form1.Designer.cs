@@ -1,4 +1,4 @@
-using keystuff.Properties;
+﻿using keystuff.Properties;
 using Microsoft.Win32;
 using RegistryUtils;
 using System;

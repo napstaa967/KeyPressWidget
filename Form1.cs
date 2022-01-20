@@ -1,21 +1,17 @@
+﻿using Gma.System.MouseKeyHook;
+using keystuff.Properties;
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
-using System.Collections.Generic;
 using System.Windows.Forms;
-using Gma.System.MouseKeyHook;
-using keystuff.Properties;
-using System.Drawing;
-using Microsoft.Win32;
-using System.Threading;
-using System.Linq;
 
 namespace keystuff
 {
     public partial class Form1 : Form
     {
 
-        
+
         public static string lastkeypress;
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn
@@ -28,6 +24,8 @@ namespace keystuff
             int nHeightEllipse // height of ellipse
         );
         private IKeyboardMouseEvents m_GlobalHook;
+        public bool IsOnSettings = false;
+
         public ContextMenu contextMenu1;
         public MenuItem alwaysOnTop;
         public MenuItem exit;
@@ -39,15 +37,17 @@ namespace keystuff
         {
             InitializeComponent();
 
+
             if (Settings.Default.PerKeyMonitors != null)
             {
                 Console.WriteLine("fard");
                 Settings.Default.PerKeyMonitors.ForEach(x =>
                 {
+                    Console.WriteLine("shit");
                     new Form3(x).Show();
                 });
             }
-            
+
             this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
             this.contextMenu1 = new ContextMenu();
             this.alwaysOnTop = new MenuItem();
@@ -92,7 +92,7 @@ namespace keystuff
                 Hide();
             }
         }
-        
+
         private void alwaysOnTop_Click(object Sender, EventArgs e)
         {
             TopMost = !TopMost;
@@ -136,127 +136,133 @@ namespace keystuff
             "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
         };
         List<string> ListStuff;
-
         private void UpdateText(object sender, KeyEventArgs e)
         {
-            if (Settings.Default.HideMain == false)
+            if (Settings.Default.IsOnSettings == false)
             {
-                Show();
-                if (Opacity != Settings.Default.Opacity)
+                if (Settings.Default.HideMain == false)
                 {
-                    timer1.Stop();
-                    Opacity = Settings.Default.Opacity;
-                }
-                TextList = String.Format("\t{0}", e.KeyData);
-                TextList = Regex.Replace(TextList, @"s", "");
-                TextList = TextList.Replace("	", "");
-                TextList = TextList.Replace(" ", "");
-                NewList = TextList.Split(',');
-                ListStuff = new List<string>(NewList);
-                if (ListStuff.IndexOf("RShiftKey") != -1 || ListStuff.IndexOf("LShiftKey") != -1 || ListStuff.IndexOf("Shift") != -1)
-                {
-                    while (ListStuff.IndexOf("LShiftKey") != -1)
+                    Show();
+                    if (Opacity != Settings.Default.Opacity)
                     {
-                        ListStuff.RemoveAt(ListStuff.IndexOf("LShiftKey"));
+                        timer1.Stop();
+                        Opacity = Settings.Default.Opacity;
                     }
-                    while (ListStuff.IndexOf("RShiftKey") != -1)
+                    TextList = String.Format("\t{0}", e.KeyData);
+                    TextList = Regex.Replace(TextList, @"s", "");
+                    TextList = TextList.Replace("	", "");
+                    TextList = TextList.Replace(" ", "");
+                    NewList = TextList.Split(',');
+                    ListStuff = new List<string>(NewList);
+                    if (ListStuff.IndexOf("RShiftKey") != -1 || ListStuff.IndexOf("LShiftKey") != -1 || ListStuff.IndexOf("Shift") != -1)
                     {
-                        ListStuff.RemoveAt(ListStuff.IndexOf("RShiftKey"));
-                    }
-                    while (ListStuff.IndexOf("Shift") != -1)
-                    {
-                        ListStuff.RemoveAt(ListStuff.IndexOf("Shift"));
-                    }
-                    if (ListStuff.IndexOf("RShiftKey") == -1 && ListStuff.IndexOf("LShiftKey") == -1 && ListStuff.IndexOf("Shift") == -1)
-                    {
-                        ListStuff.Insert(0, "Shift");
-                    }
-                }
-                if (ListStuff.IndexOf("Alt") != -1 || ListStuff.IndexOf("LMenu") != -1 || ListStuff.IndexOf("RMenu") != -1)
-                {
-                    while (ListStuff.IndexOf("Alt") != -1)
-                    {
-                        ListStuff.RemoveAt(ListStuff.IndexOf("Alt"));
-                    }
-                    while (ListStuff.IndexOf("LMenu") != -1)
-                    {
-                        ListStuff.RemoveAt(ListStuff.IndexOf("LMenu"));
-                    }
-                    while (ListStuff.IndexOf("RMenu") != -1)
-                    {
-                        ListStuff.RemoveAt(ListStuff.IndexOf("RMenu"));
-                    }
-                    if (ListStuff.IndexOf("Alt") == -1 && ListStuff.IndexOf("LMenu") == -1 && ListStuff.IndexOf("RMenu") == -1)
-                    {
-
-                        ListStuff.Insert(0, "Alt");
-                    }
-                }
-                if (ListStuff.IndexOf("Control") != -1 || ListStuff.IndexOf("LControlKey") != -1 || ListStuff.IndexOf("RControlKey") != -1)
-                {
-                    while (ListStuff.IndexOf("Control") != -1)
-                    {
-                        ListStuff.RemoveAt(ListStuff.IndexOf("Control"));
-                    }
-                    while (ListStuff.IndexOf("LControlKey") != -1)
-                    {
-                        ListStuff.RemoveAt(ListStuff.IndexOf("LControlKey"));
-                    }
-                    while (ListStuff.IndexOf("RControlKey") != -1)
-                    {
-                        ListStuff.RemoveAt(ListStuff.IndexOf("RControlKey"));
-                    }
-                    if (ListStuff.IndexOf("Control") == -1 && ListStuff.IndexOf("LControlKey") == -1 && ListStuff.IndexOf("RControlKey") == -1)
-                    {
-                        ListStuff.Insert(0, "Control");
-                    }
-                }
-                IndexStuff = ListStuff.IndexOf("LWin");
-                if (IndexStuff != -1)
-                {
-                    ListStuff.RemoveAt(IndexStuff);
-                    ListStuff.Insert(0, "Win");
-                };
-                Chars.ForEach(test =>
-                {
-                    if (ListStuff.IndexOf(test) != -1)
-                    {
-                        if ((Control.IsKeyLocked(Keys.CapsLock) == true && ListStuff.IndexOf("Shift") != -1) || (Control.IsKeyLocked(Keys.CapsLock) == false && ListStuff.IndexOf("Shift") == -1))
+                        while (ListStuff.IndexOf("LShiftKey") != -1)
                         {
-                            ListStuff[ListStuff.IndexOf(test)] = ListStuff[ListStuff.IndexOf(test)].ToLower();
+                            ListStuff.RemoveAt(ListStuff.IndexOf("LShiftKey"));
                         }
-                        if (ListStuff.IndexOf("Shift") != -1)
+                        while (ListStuff.IndexOf("RShiftKey") != -1)
+                        {
+                            ListStuff.RemoveAt(ListStuff.IndexOf("RShiftKey"));
+                        }
+                        while (ListStuff.IndexOf("Shift") != -1)
                         {
                             ListStuff.RemoveAt(ListStuff.IndexOf("Shift"));
                         }
+                        if (ListStuff.IndexOf("RShiftKey") == -1 && ListStuff.IndexOf("LShiftKey") == -1 && ListStuff.IndexOf("Shift") == -1)
+                        {
+                            ListStuff.Insert(0, "Shift");
+                        }
                     }
-
-                });
-
-                if (Settings.Default.WordBuild == true)
-                {
-                    if (!label1.Text.Contains("+"))
+                    if (ListStuff.IndexOf("Alt") != -1 || ListStuff.IndexOf("LMenu") != -1 || ListStuff.IndexOf("RMenu") != -1)
                     {
-                        if (Chars.Contains(ListStuff[0].ToUpper()))
+                        while (ListStuff.IndexOf("Alt") != -1)
+                        {
+                            ListStuff.RemoveAt(ListStuff.IndexOf("Alt"));
+                        }
+                        while (ListStuff.IndexOf("LMenu") != -1)
+                        {
+                            ListStuff.RemoveAt(ListStuff.IndexOf("LMenu"));
+                        }
+                        while (ListStuff.IndexOf("RMenu") != -1)
+                        {
+                            ListStuff.RemoveAt(ListStuff.IndexOf("RMenu"));
+                        }
+                        if (ListStuff.IndexOf("Alt") == -1 && ListStuff.IndexOf("LMenu") == -1 && ListStuff.IndexOf("RMenu") == -1)
                         {
 
-
-                            if (Settings.Default.LastKeyPress == "null" || Chars.Contains(Settings.Default.LastKeyPress.ToUpper()) == false)
+                            ListStuff.Insert(0, "Alt");
+                        }
+                    }
+                    if (ListStuff.IndexOf("Control") != -1 || ListStuff.IndexOf("LControlKey") != -1 || ListStuff.IndexOf("RControlKey") != -1)
+                    {
+                        while (ListStuff.IndexOf("Control") != -1)
+                        {
+                            ListStuff.RemoveAt(ListStuff.IndexOf("Control"));
+                        }
+                        while (ListStuff.IndexOf("LControlKey") != -1)
+                        {
+                            ListStuff.RemoveAt(ListStuff.IndexOf("LControlKey"));
+                        }
+                        while (ListStuff.IndexOf("RControlKey") != -1)
+                        {
+                            ListStuff.RemoveAt(ListStuff.IndexOf("RControlKey"));
+                        }
+                        if (ListStuff.IndexOf("Control") == -1 && ListStuff.IndexOf("LControlKey") == -1 && ListStuff.IndexOf("RControlKey") == -1)
+                        {
+                            ListStuff.Insert(0, "Control");
+                        }
+                    }
+                    IndexStuff = ListStuff.IndexOf("LWin");
+                    if (IndexStuff != -1)
+                    {
+                        ListStuff.RemoveAt(IndexStuff);
+                        ListStuff.Insert(0, "Win");
+                    };
+                    Chars.ForEach(test =>
+                    {
+                        if (ListStuff.IndexOf(test) != -1)
+                        {
+                            if ((Control.IsKeyLocked(Keys.CapsLock) == true && ListStuff.IndexOf("Shift") != -1) || (Control.IsKeyLocked(Keys.CapsLock) == false && ListStuff.IndexOf("Shift") == -1))
                             {
-                                label1.Text = "";
-                                label1.Text = ListStuff[0];
+                                ListStuff[ListStuff.IndexOf(test)] = ListStuff[ListStuff.IndexOf(test)].ToLower();
+                            }
+                            if (ListStuff.IndexOf("Shift") != -1)
+                            {
+                                ListStuff.RemoveAt(ListStuff.IndexOf("Shift"));
+                            }
+                        }
+
+                    });
+
+                    if (Settings.Default.WordBuild == true)
+                    {
+                        if (!label1.Text.Contains("+"))
+                        {
+                            if (Chars.Contains(ListStuff[0].ToUpper()))
+                            {
+
+
+                                if (Settings.Default.LastKeyPress == "null" || Chars.Contains(Settings.Default.LastKeyPress.ToUpper()) == false)
+                                {
+                                    label1.Text = "";
+                                    label1.Text = ListStuff[0];
+                                }
+                                else
+                                {
+                                    label1.Text += ListStuff[0];
+                                }
+                                Settings.Default.LastKeyPress = String.Join("+", ListStuff);
+                                Settings.Default.Save();
                             }
                             else
                             {
-                                label1.Text += ListStuff[0];
+                                Settings.Default.LastKeyPress = String.Join("+", ListStuff);
+                                Settings.Default.Save();
+                                label1.Text = String.Join("+", ListStuff);
                             }
-                            Settings.Default.LastKeyPress = String.Join("+", ListStuff);
-                            Settings.Default.Save();
                         }
                         else
                         {
-                            Settings.Default.LastKeyPress = String.Join("+", ListStuff);
-                            Settings.Default.Save();
                             label1.Text = String.Join("+", ListStuff);
                         }
                     }
@@ -264,18 +270,14 @@ namespace keystuff
                     {
                         label1.Text = String.Join("+", ListStuff);
                     }
+                    timer2.Start();
                 }
                 else
                 {
-                    label1.Text = String.Join("+", ListStuff);
+                    Hide();
                 }
-                timer2.Start();
             }
-            else
-            {
-                Hide();
-            }
-            
+
         }
 
         internal static void RestartApp()

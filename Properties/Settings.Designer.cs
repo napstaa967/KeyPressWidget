@@ -169,7 +169,6 @@ namespace keystuff.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\"A\"\r\n\"B\"")]
         public global::System.Collections.Generic.List<System.String> PerKeyMonitors {
             get {
                 return ((global::System.Collections.Generic.List<System.String>)(this["PerKeyMonitors"]));
@@ -200,6 +199,30 @@ namespace keystuff.Properties {
             }
             set {
                 this["HideMain"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IsOnSettings {
+            get {
+                return ((bool)(this["IsOnSettings"]));
+            }
+            set {
+                this["IsOnSettings"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string InputTest {
+            get {
+                return ((string)(this["InputTest"]));
+            }
+            set {
+                this["InputTest"] = value;
             }
         }
     }
